@@ -1,7 +1,7 @@
 resource "aws_efs_file_system" "nats-service-efs" {
   creation_token = "nats-service"
   lifecycle {
-#    prevent_destroy = true
+    prevent_destroy = true
   }
   tags {
     Name = "NatsServiceEFS"
