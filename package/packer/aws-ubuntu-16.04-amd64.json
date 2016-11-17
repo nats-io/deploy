@@ -1,0 +1,30 @@
+{
+  "builders": [{
+      "type": "amazon-ebs",
+      "region": "us-east-1",
+      "source_ami": "ami-40d28157",
+      "instance_type": "t2.micro",
+      "ssh_username": "ubuntu",
+      "ami_name": "packer-nats {{timestamp}}",
+      "ami_regions": ["us-east-1", "us-west-2"]
+
+    }
+  ],
+  "provisioners": [{
+    "type": "file",
+    "source": "scripts/nats/etc",
+    "destination": "./etc"
+  }, {
+    "type": "file",
+    "source": "scripts/nats/home",
+    "destination": "./home"
+  }, {
+    "type": "shell",
+    "scripts": [
+      "scripts/nats/setup.sh"
+    ]
+  }, {
+    "type": "shell",
+    "inline": ["sudo reboot"]
+  }]
+}
